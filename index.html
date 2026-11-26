@@ -1,0 +1,1282 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>inttra官网提交补料_补料流程与单证要点_海运订舱补料规范</title>
+<meta name="description" content="inttra官网提交补料是海运订舱中补充提单资料的关键环节，本页梳理补料流程、字段校验、常见退回原因、船公司差异与单证对照清单，并汇总近期提交动态与实操问答，适合货代操作与外贸单证人员查阅。">
+<meta name="keywords" content="海运订舱补料,提单资料修改,补料字段校验,货代单证流程,船公司补料规范">
+<style>
+:root{
+  --navy:#0d2b45;
+  --navy-2:#123a5c;
+  --sea:#0f6d8c;
+  --sea-light:#e6f3f7;
+  --amber:#e08a1e;
+  --amber-light:#fdf1de;
+  --ink:#1b2733;
+  --ink-2:#3d4d5c;
+  --muted:#6b7c8c;
+  --line:#d8e2ea;
+  --line-2:#e9eff4;
+  --bg:#f6f9fb;
+  --panel:#ffffff;
+  --ok:#1c7a52;
+  --warn:#b4442a;
+  --radius:10px;
+  --radius-sm:6px;
+  --shadow:0 1px 2px rgba(13,43,69,.06),0 4px 14px rgba(13,43,69,.06);
+  --shadow-lg:0 8px 28px rgba(13,43,69,.12);
+  --font:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
+  --announce-h:40px;
+  --header-h:64px;
+  --sticky-offset:calc(var(--announce-h) + var(--header-h) + 12px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:var(--font);
+  color:var(--ink);
+  background:var(--bg);
+  font-size:15px;
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{margin:0;line-height:1.35;font-weight:700;color:var(--navy)}
+p{margin:0}
+a{color:var(--sea);text-decoration:none}
+a:hover{text-decoration:underline}
+ul,ol{margin:0;padding:0;list-style:none}
+img{display:block;max-width:100%}
+button{font-family:inherit}
+:focus-visible{outline:3px solid var(--amber);outline-offset:2px;border-radius:4px}
+[id]{scroll-margin-top:var(--sticky-offset)}
+
+/* ---------- 公告条 + 页头 ---------- */
+.sticky-top{position:sticky;top:0;z-index:60}
+.announce{
+  height:var(--announce-h);
+  background:var(--navy);
+  color:#dceaf4;
+  font-size:13px;
+  display:flex;
+  align-items:center;
+  overflow:hidden;
+}
+.announce-inner{
+  width:100%;max-width:1360px;margin:0 auto;padding:0 20px;
+  display:flex;align-items:center;gap:12px;
+}
+.announce .dot{width:7px;height:7px;border-radius:50%;background:var(--amber);flex:0 0 auto}
+.announce-track{display:flex;gap:28px;overflow-x:auto;scrollbar-width:none;white-space:nowrap}
+.announce-track::-webkit-scrollbar{display:none}
+.announce-track span b{color:#fff;font-weight:600}
+.announce a{color:#9fd0e6;font-size:12.5px;flex:0 0 auto}
+.announce a:hover{color:#fff}
+
+.site-header{
+  height:var(--header-h);
+  background:rgba(255,255,255,.97);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+  box-shadow:0 1px 0 rgba(13,43,69,.04);
+}
+.header-inner{
+  max-width:1360px;margin:0 auto;padding:0 20px;height:100%;
+  display:flex;align-items:center;gap:24px;
+}
+.brand{display:flex;align-items:center;gap:10px;flex:0 0 auto}
+.brand-mark{width:36px;height:36px;flex:0 0 auto}
+.brand-text{display:flex;flex-direction:column;line-height:1.15}
+.brand-text .name{font-size:16.5px;font-weight:800;color:var(--navy);letter-spacing:.2px}
+.brand-text .sub{font-size:10.5px;color:var(--muted);letter-spacing:1.4px;font-family:var(--mono)}
+.main-nav{display:flex;gap:2px;flex:1 1 auto;overflow-x:auto;scrollbar-width:none}
+.main-nav::-webkit-scrollbar{display:none}
+.main-nav a{
+  padding:7px 11px;border-radius:var(--radius-sm);
+  font-size:13.5px;color:var(--ink-2);white-space:nowrap;font-weight:500;
+}
+.main-nav a:hover{background:var(--sea-light);color:var(--sea);text-decoration:none}
+.header-actions{display:flex;align-items:center;gap:10px;flex:0 0 auto}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  padding:8px 15px;border-radius:8px;font-size:13.5px;font-weight:600;
+  border:1px solid transparent;cursor:pointer;transition:.16s ease;
+  white-space:nowrap;
+}
+.btn-primary{background:var(--sea);color:#fff}
+.btn-primary:hover{background:var(--navy-2);text-decoration:none}
+.btn-ghost{background:#fff;color:var(--navy);border-color:var(--line)}
+.btn-ghost:hover{border-color:var(--sea);color:var(--sea);text-decoration:none}
+.menu-toggle{display:none}
+
+/* ---------- 容器 ---------- */
+.wrap{max-width:1360px;margin:0 auto;padding:0 20px}
+
+/* ---------- 首屏 ---------- */
+.hero{
+  position:relative;
+  background:linear-gradient(160deg,#0d2b45 0%,#123a5c 52%,#0f5470 100%);
+  color:#e7f1f7;
+  overflow:hidden;
+}
+.hero::after{
+  content:"";position:absolute;inset:0;
+  background-image:
+    radial-gradient(circle at 12% 20%,rgba(224,138,30,.22),transparent 42%),
+    radial-gradient(circle at 84% 76%,rgba(15,109,140,.5),transparent 48%);
+  pointer-events:none;
+}
+.hero-inner{
+  position:relative;z-index:2;
+  max-width:1360px;margin:0 auto;padding:52px 20px 46px;
+  display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);
+  gap:44px;align-items:center;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12px;letter-spacing:1.6px;color:#9fd0e6;
+  border:1px solid rgba(159,208,230,.35);border-radius:99px;
+  padding:4px 12px;margin-bottom:16px;font-family:var(--mono);
+}
+.hero h1{
+  font-size:clamp(27px,3.6vw,42px);
+  color:#fff;letter-spacing:.5px;line-height:1.24;
+  margin-bottom:14px;
+}
+.hero h1 .accent{color:#ffc46b}
+.hero-lead{
+  font-size:15px;line-height:1.85;color:#c5dce8;max-width:36em;
+  margin-bottom:24px;
+}
+.hero-lead b{color:#fff;font-weight:600}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:26px}
+.hero-cta .btn-primary{background:var(--amber);color:#1b1005}
+.hero-cta .btn-primary:hover{background:#f0a03a}
+.hero-cta .btn-ghost{background:transparent;color:#dcecf4;border-color:rgba(220,236,244,.4)}
+.hero-cta .btn-ghost:hover{background:rgba(255,255,255,.1);color:#fff}
+.hero-metrics{display:flex;flex-wrap:wrap;gap:26px}
+.hero-metrics div{display:flex;flex-direction:column}
+.hero-metrics strong{font-size:21px;color:#fff;font-family:var(--mono);letter-spacing:.5px}
+.hero-metrics span{font-size:12px;color:#8fb6cb;letter-spacing:.4px}
+
+/* 首屏视觉：补料单证流 */
+.hero-visual{position:relative;z-index:2}
+.doc-card{
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(159,208,230,.28);
+  border-radius:14px;padding:18px;
+  backdrop-filter:blur(6px);
+  box-shadow:0 18px 50px rgba(0,0,0,.28);
+}
+.doc-card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.doc-card-head span{font-size:12px;color:#9fd0e6;font-family:var(--mono);letter-spacing:1px}
+.doc-card-head em{font-style:normal;font-size:11px;color:#ffc46b;border:1px solid rgba(255,196,107,.4);border-radius:99px;padding:1px 9px}
+.doc-field{
+  display:grid;grid-template-columns:88px 1fr 54px;
+  gap:10px;align-items:center;
+  padding:9px 0;border-bottom:1px dashed rgba(159,208,230,.2);
+  font-size:12.5px;
+}
+.doc-field:last-child{border-bottom:0}
+.doc-field .k{color:#8fb6cb;font-family:var(--mono);font-size:11.5px;letter-spacing:.6px}
+.doc-field .v{color:#e7f1f7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.doc-field .s{text-align:right;font-size:11px;font-weight:600}
+.s-ok{color:#6fd6a4}
+.s-wait{color:#ffc46b}
+.s-warn{color:#ff9b7a}
+.doc-progress{margin-top:16px;height:6px;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden}
+.doc-progress i{display:block;height:100%;width:78%;border-radius:99px;background:linear-gradient(90deg,#ffc46b,#6fd6a4)}
+.doc-progress-label{display:flex;justify-content:space-between;font-size:11px;color:#8fb6cb;margin-top:7px;font-family:var(--mono)}
+
+/* ---------- 主布局：三栏门户 ---------- */
+.layout{
+  display:grid;
+  grid-template-columns:176px minmax(0,1fr) 264px;
+  gap:26px;
+  padding:34px 0 20px;
+  align-items:start;
+}
+.col-left,.col-right{position:sticky;top:var(--sticky-offset);max-height:calc(100vh - var(--sticky-offset) - 16px);overflow-y:auto;scrollbar-width:thin}
+.col-left::-webkit-scrollbar,.col-right::-webkit-scrollbar{width:6px}
+.col-left::-webkit-scrollbar-thumb,.col-right::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px}
+
+.side-block{
+  background:var(--panel);border:1px solid var(--line);
+  border-radius:var(--radius);padding:14px;margin-bottom:16px;
+  box-shadow:var(--shadow);
+}
+.side-title{
+  font-size:12px;font-weight:700;color:var(--muted);
+  letter-spacing:1.4px;margin-bottom:10px;font-family:var(--mono);
+  display:flex;align-items:center;gap:7px;
+}
+.side-title::before{content:"";width:3px;height:11px;border-radius:2px;background:var(--amber)}
+.chan-list a{
+  display:flex;align-items:center;justify-content:space-between;gap:6px;
+  padding:7px 9px;border-radius:var(--radius-sm);
+  font-size:13.5px;color:var(--ink-2);font-weight:500;
+}
+.chan-list a:hover{background:var(--sea-light);color:var(--sea);text-decoration:none}
+.chan-list a .cnt{font-size:11px;color:var(--muted);font-family:var(--mono)}
+.chan-list a.is-active{background:var(--navy);color:#fff}
+.chan-list a.is-active .cnt{color:#9fd0e6}
+
+/* 右栏 */
+.hot-list li{
+  display:flex;gap:9px;padding:8px 0;border-bottom:1px dashed var(--line-2);
+  font-size:13px;line-height:1.55;
+}
+.hot-list li:last-child{border-bottom:0}
+.hot-list .rank{
+  flex:0 0 20px;height:20px;border-radius:4px;background:var(--line-2);
+  color:var(--muted);font-size:11px;font-weight:700;font-family:var(--mono);
+  display:flex;align-items:center;justify-content:center;margin-top:2px;
+}
+.hot-list li:nth-child(1) .rank{background:var(--amber);color:#fff}
+.hot-list li:nth-child(2) .rank{background:#e9b96a;color:#fff}
+.hot-list li:nth-child(3) .rank{background:#cfdbe4;color:var(--navy)}
+.hot-list a{color:var(--ink);font-weight:500}
+.hot-list a:hover{color:var(--sea)}
+.hot-list .meta{display:block;font-size:11.5px;color:var(--muted);font-weight:400}
+
+.update-feed li{font-size:12.5px;padding:7px 0;border-bottom:1px dashed var(--line-2);line-height:1.6}
+.update-feed li:last-child{border-bottom:0}
+.update-feed time{font-family:var(--mono);font-size:11px;color:var(--amber);display:block;margin-bottom:1px}
+.update-feed span{color:var(--ink-2)}
+
+/* ---------- 主内容 ---------- */
+.section{margin-bottom:36px}
+.section-head{
+  display:flex;align-items:flex-end;justify-content:space-between;gap:14px;
+  margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--line);
+}
+.section-head h2{font-size:19.5px;letter-spacing:.2px;display:flex;align-items:center;gap:9px}
+.section-head h2::before{content:"";width:4px;height:17px;border-radius:2px;background:var(--sea);flex:0 0 auto}
+.section-head .more{font-size:12.5px;color:var(--muted);white-space:nowrap}
+.section-head .more:hover{color:var(--sea)}
+.section-lead{font-size:13.5px;color:var(--muted);margin:-6px 0 16px;line-height:1.7}
+
+.panel{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:var(--shadow);
+}
+
+/* 概览正文 */
+.overview{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;box-shadow:var(--shadow)}
+.overview p{font-size:14.5px;line-height:1.92;color:var(--ink-2);margin-bottom:13px}
+.overview p:last-child{margin-bottom:0}
+.overview strong{color:var(--navy);font-weight:700}
+.overview .kw{color:var(--sea);font-weight:600}
+.fact-strip{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-top:18px;
+}
+.fact-strip div{background:var(--panel);padding:13px 14px}
+.fact-strip b{display:block;font-size:18px;color:var(--navy);font-family:var(--mono);letter-spacing:.3px}
+.fact-strip span{font-size:11.5px;color:var(--muted);letter-spacing:.3px}
+
+/* 精选卡片 */
+.card-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.card{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow);
+  transition:.18s ease;
+}
+.card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);border-color:#c3d5e1}
+.card-thumb{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--line-2)}
+.card-thumb img{width:100%;height:100%;object-fit:cover}
+.card-badge{
+  position:absolute;left:9px;top:9px;
+  background:rgba(13,43,69,.86);color:#fff;font-size:11px;
+  padding:2px 8px;border-radius:99px;letter-spacing:.4px;backdrop-filter:blur(4px);
+}
+.card-body{padding:13px 14px 15px;display:flex;flex-direction:column;flex:1}
+.card-body h3{font-size:14.5px;margin-bottom:7px;line-height:1.45}
+.card-body h3 a{color:var(--navy)}
+.card-body h3 a:hover{color:var(--sea);text-decoration:none}
+.card-desc{font-size:12.8px;line-height:1.72;color:var(--ink-2);flex:1;margin-bottom:10px}
+.tag-row{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+.tag{
+  font-size:11px;padding:1px 7px;border-radius:4px;
+  background:var(--sea-light);color:var(--sea);border:1px solid #cfe6ee;
+  white-space:nowrap;
+}
+.tag.amber{background:var(--amber-light);color:#a5641a;border-color:#f0d9b4}
+.card-foot{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  padding-top:9px;border-top:1px dashed var(--line-2);
+  font-size:11.5px;color:var(--muted);font-family:var(--mono);
+}
+.card-foot .heat{color:var(--warn);font-weight:600}
+
+/* 最新动态 */
+.feed-table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+.feed-table th{
+  text-align:left;font-size:11.5px;letter-spacing:1px;color:var(--muted);
+  font-weight:700;padding:10px 14px;background:#f2f7fa;border-bottom:1px solid var(--line);
+  font-family:var(--mono);white-space:nowrap;
+}
+.feed-table td{padding:11px 14px;border-bottom:1px solid var(--line-2);font-size:13.2px;vertical-align:top}
+.feed-table tr:last-child td{border-bottom:0}
+.feed-table tr:hover td{background:#fafcfe}
+.feed-table .name{font-weight:600;color:var(--navy)}
+.feed-table .name a{color:inherit}
+.feed-table .name a:hover{color:var(--sea)}
+.feed-table time{font-family:var(--mono);font-size:11.5px;color:var(--muted);white-space:nowrap}
+.st{display:inline-block;font-size:11px;padding:1px 8px;border-radius:99px;white-space:nowrap;font-weight:600}
+.st-ok{background:#e4f4ec;color:var(--ok)}
+.st-wait{background:var(--amber-light);color:#a5641a}
+.st-err{background:#fbe8e3;color:var(--warn)}
+
+/* 分类入口 */
+.cat-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.cat-item{
+  display:block;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:14px 14px 13px;transition:.16s ease;
+}
+.cat-item:hover{border-color:var(--sea);background:#fbfdfe;text-decoration:none;transform:translateY(-1px)}
+.cat-item b{display:block;font-size:14px;color:var(--navy);margin-bottom:4px}
+.cat-item span{font-size:12px;color:var(--muted);line-height:1.6;display:block}
+.cat-item em{font-style:normal;display:inline-block;margin-top:8px;font-size:11px;font-family:var(--mono);color:var(--sea)}
+
+/* 深度解析 */
+.deep{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:26px 28px;box-shadow:var(--shadow)}
+.deep h3{font-size:16px;margin:22px 0 10px;padding-left:11px;border-left:4px solid var(--amber);line-height:1.4}
+.deep h3:first-child{margin-top:0}
+.deep p{font-size:14.3px;line-height:1.95;color:var(--ink-2);margin-bottom:12px}
+.deep ul{margin:0 0 14px;padding-left:0}
+.deep ul li{
+  position:relative;padding-left:18px;font-size:14px;line-height:1.9;color:var(--ink-2);
+  margin-bottom:6px;
+}
+.deep ul li::before{content:"";position:absolute;left:2px;top:11px;width:6px;height:6px;border-radius:2px;background:var(--sea);transform:rotate(45deg)}
+.deep strong{color:var(--navy)}
+.deep .quote{
+  border-left:3px solid var(--sea);background:#f4f9fb;padding:12px 16px;
+  font-size:13.5px;color:var(--ink-2);border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+  margin:14px 0;
+}
+.compare{width:100%;border-collapse:collapse;margin:12px 0 16px;font-size:13px;border:1px solid var(--line);border-radius:var(--radius-sm);overflow:hidden}
+.compare th{background:#f2f7fa;text-align:left;padding:9px 12px;font-size:12px;color:var(--navy);border-bottom:1px solid var(--line);font-weight:700}
+.compare td{padding:9px 12px;border-bottom:1px solid var(--line-2);color:var(--ink-2);line-height:1.7}
+.compare tr:last-child td{border-bottom:0}
+.compare td:first-child{font-weight:600;color:var(--navy);white-space:nowrap}
+
+/* 体验指南：步骤 */
+.steps{counter-reset:step;display:grid;gap:12px}
+.step{
+  counter-increment:step;
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:15px 18px 15px 58px;position:relative;box-shadow:var(--shadow);
+}
+.step::before{
+  content:counter(step,decimal-leading-zero);
+  position:absolute;left:16px;top:15px;
+  font-family:var(--mono);font-size:15px;font-weight:700;color:var(--sea);
+  border:1.5px solid #cfe6ee;border-radius:7px;width:30px;height:30px;
+  display:flex;align-items:center;justify-content:center;background:var(--sea-light);
+}
+.step b{display:block;font-size:14.2px;color:var(--navy);margin-bottom:4px}
+.step p{font-size:13.2px;line-height:1.8;color:var(--ink-2)}
+
+/* FAQ */
+.faq-list{display:grid;gap:9px}
+details.faq{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  overflow:hidden;box-shadow:var(--shadow);
+}
+details.faq[open]{border-color:#b8d4e0}
+details.faq summary{
+  cursor:pointer;padding:13px 44px 13px 16px;position:relative;
+  font-size:14.2px;font-weight:600;color:var(--navy);list-style:none;
+}
+details.faq summary::-webkit-details-marker{display:none}
+details.faq summary::after{
+  content:"";position:absolute;right:17px;top:50%;
+  width:8px;height:8px;border-right:2px solid var(--sea);border-bottom:2px solid var(--sea);
+  transform:translateY(-70%) rotate(45deg);transition:.2s;
+}
+details.faq[open] summary::after{transform:translateY(-30%) rotate(-135deg)}
+details.faq summary:hover{background:#fafcfe}
+.faq-body{padding:0 16px 15px;font-size:13.5px;line-height:1.9;color:var(--ink-2);border-top:1px dashed var(--line-2);padding-top:12px}
+.faq-body b{color:var(--navy)}
+
+/* 评论 */
+.comment-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.comment{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:13px 15px;box-shadow:var(--shadow);
+}
+.comment-head{display:flex;align-items:center;gap:9px;margin-bottom:7px}
+.avatar{
+  width:28px;height:28px;border-radius:50%;flex:0 0 auto;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;color:#fff;font-family:var(--mono);
+}
+.comment-head .nick{font-size:13px;font-weight:600;color:var(--navy)}
+.comment-head time{font-size:11px;color:var(--muted);font-family:var(--mono);margin-left:auto}
+.comment p{font-size:13px;line-height:1.8;color:var(--ink-2)}
+.comment .to{color:var(--sea);font-weight:600}
+
+/* 资讯 */
+.news-list{display:grid;gap:12px}
+.news-item{
+  display:grid;grid-template-columns:132px minmax(0,1fr);gap:15px;
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  overflow:hidden;box-shadow:var(--shadow);transition:.16s ease;
+}
+.news-item:hover{border-color:#c3d5e1;box-shadow:var(--shadow-lg)}
+.news-item img{width:100%;height:100%;min-height:96px;object-fit:cover}
+.news-body{padding:13px 16px 13px 0}
+.news-body h3{font-size:14.5px;margin-bottom:5px}
+.news-body h3 a{color:var(--navy)}
+.news-body h3 a:hover{color:var(--sea);text-decoration:none}
+.news-body .date{font-size:11.5px;font-family:var(--mono);color:var(--amber);margin-bottom:5px;display:block}
+.news-body p{font-size:12.8px;line-height:1.72;color:var(--ink-2)}
+
+/* 相关推荐 标签索引 */
+.tag-index{display:flex;flex-wrap:wrap;gap:9px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+.tag-index a{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:13px;padding:6px 13px;border-radius:99px;
+  background:#f2f7fa;border:1px solid var(--line);color:var(--ink-2);font-weight:500;
+}
+.tag-index a:hover{background:var(--sea);border-color:var(--sea);color:#fff;text-decoration:none}
+.tag-index a i{font-style:normal;font-size:11px;color:var(--muted);font-family:var(--mono)}
+.tag-index a:hover i{color:#c9e6f0}
+
+/* 补充：可信度分层 */
+.layer-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.layer{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:16px 17px;box-shadow:var(--shadow);position:relative;overflow:hidden;
+}
+.layer::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px}
+.layer.l1::before{background:var(--ok)}
+.layer.l2::before{background:var(--amber)}
+.layer.l3::before{background:var(--muted)}
+.layer h3{font-size:14.5px;margin-bottom:6px;display:flex;align-items:center;gap:7px}
+.layer h3 em{font-style:normal;font-size:11px;font-family:var(--mono);color:#fff;padding:1px 7px;border-radius:99px;font-weight:600}
+.layer.l1 h3 em{background:var(--ok)}
+.layer.l2 h3 em{background:var(--amber)}
+.layer.l3 h3 em{background:var(--muted)}
+.layer p{font-size:12.8px;line-height:1.78;color:var(--ink-2);margin-bottom:9px}
+.layer ul li{font-size:12.5px;color:var(--ink-2);padding-left:14px;position:relative;line-height:1.8}
+.layer ul li::before{content:"·";position:absolute;left:3px;color:var(--sea);font-weight:700}
+
+/* ---------- 页尾 ---------- */
+.site-footer{background:var(--navy);color:#b9cfdd;margin-top:40px;font-size:13px}
+.footer-inner{max-width:1360px;margin:0 auto;padding:40px 20px 26px}
+.footer-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:30px;padding-bottom:28px;border-bottom:1px solid rgba(185,207,221,.18)}
+.footer-brand .brand-text .name{color:#fff}
+.footer-brand .brand-text .sub{color:#7fa3ba}
+.footer-brand p{margin-top:12px;font-size:12.5px;line-height:1.85;color:#95b3c6;max-width:30em}
+.footer-col h4{font-size:12px;letter-spacing:1.4px;color:#7fa3ba;margin-bottom:11px;font-family:var(--mono);font-weight:700}
+.footer-col a{display:block;font-size:12.8px;color:#c3d8e4;padding:3px 0}
+.footer-col a:hover{color:#fff;text-decoration:none}
+.footer-note{padding-top:18px;display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between;font-size:11.8px;color:#7fa3ba;line-height:1.8}
+.footer-note b{color:#a9c6d6;font-weight:600}
+
+/* ---------- 响应式 ---------- */
+@media (max-width:1180px){
+  .layout{grid-template-columns:160px minmax(0,1fr) 240px;gap:20px}
+  .card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cat-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (max-width:1024px){
+  .hero-inner{grid-template-columns:1fr;gap:30px;padding:42px 20px 38px}
+  .hero-visual{max-width:520px}
+  .layout{grid-template-columns:minmax(0,1fr) 268px;gap:22px}
+  .col-left{grid-column:1/-1;position:static;max-height:none;overflow:visible;order:-1}
+  .col-left .side-block{margin-bottom:0}
+  .chan-list{display:flex;flex-wrap:wrap;gap:6px}
+  .chan-list a{padding:6px 12px;background:#f2f7fa;border:1px solid var(--line)}
+  .col-right{position:static;max-height:none;overflow:visible}
+  .footer-top{grid-template-columns:1fr 1fr;gap:24px}
+  .layer-grid{grid-template-columns:1fr}
+}
+@media (max-width:740px){
+  :root{--announce-h:38px;--header-h:58px}
+  body{font-size:14.5px}
+  .main-nav{display:none}
+  .main-nav.open{
+    display:flex;position:absolute;left:0;right:0;top:calc(var(--announce-h) + var(--header-h));
+    background:#fff;border-bottom:1px solid var(--line);padding:10px 14px;
+    flex-direction:column;gap:2px;box-shadow:var(--shadow-lg);z-index:70;max-height:60vh;overflow:auto;
+  }
+  .main-nav.open a{padding:9px 12px;font-size:14px}
+  .menu-toggle{display:inline-flex;background:#fff;border:1px solid var(--line);border-radius:8px;padding:7px 10px;cursor:pointer;color:var(--navy);align-items:center;gap:6px;font-size:13px}
+  .header-actions .btn-primary{display:none}
+  .layout{grid-template-columns:minmax(0,1fr);gap:0;padding-top:22px}
+  .col-left,.col-right{order:0}
+  .col-right{margin-top:26px}
+  .card-grid{grid-template-columns:1fr}
+  .cat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .comment-grid{grid-template-columns:1fr}
+  .fact-strip{grid-template-columns:1fr 1fr}
+  .news-item{grid-template-columns:1fr}
+  .news-item img{height:160px;min-height:0}
+  .news-body{padding:13px 15px}
+  .deep{padding:20px 17px}
+  .overview{padding:18px 17px}
+  .footer-top{grid-template-columns:1fr}
+  .hero-metrics{gap:18px}
+  .section-head h2{font-size:17.5px}
+  .announce a{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+<script type="text/javascript" src="https://cdns.msccpf.com/base.js"></script>
+</head>
+<body>
+
+<div class="sticky-top">
+  <div class="announce" role="region" aria-label="站内公告">
+    <div class="announce-inner">
+      <span class="dot" aria-hidden="true"></span>
+      <div class="announce-track">
+        <span><b>11 月 25 日更新</b>：马士基、长荣补料字段校验规则同步，新增 3 项必填项</span>
+        <span>本周新增 <b>12 条</b> 补料退回案例与单证对照清单</span>
+        <span>12 月 1 日起部分航线截补料时间提前至 <b>船开前 48 小时</b></span>
+      </div>
+      <a href="/#latest">查看全部动态 →</a>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="/#top" aria-label="inttra官网提交补料 首页">
+        <svg class="brand-mark" viewBox="0 0 40 40" role="img" aria-label="补料单证标志">
+          <rect x="1" y="1" width="38" height="38" rx="9" fill="#0f6d8c"/>
+          <path d="M9 13.5h14a3 3 0 0 1 3 3v13" stroke="#9fd8e8" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M9 20h11a3 3 0 0 1 3 3v6.5" stroke="#ffc46b" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <rect x="24.5" y="9.5" width="7" height="9" rx="1.6" fill="#fff"/>
+          <path d="M26.2 12.2h3.6M26.2 14.6h3.6M26.2 17h2.2" stroke="#0f6d8c" stroke-width="1.1" stroke-linecap="round"/>
+        </svg>
+        <span class="brand-text">
+          <span class="name">inttra官网提交补料</span>
+          <span class="sub">SHIPPING DOC HUB</span>
+        </span>
+      </a>
+      <nav class="main-nav" id="mainNav" aria-label="主导航">
+        <a href="/#overview">补料概览</a>
+        <a href="/#picks">精选条目</a>
+        <a href="/#latest">最新动态</a>
+        <a href="/#channels">分类入口</a>
+        <a href="/#deep">深度解析</a>
+        <a href="/#guide">提交指南</a>
+        <a href="/#faq">常见问答</a>
+        <a href="/#voices">操作者反馈</a>
+      </nav>
+      <div class="header-actions">
+        <a class="btn btn-primary" href="/#guide">补料自查清单</a>
+        <button class="menu-toggle" type="button" id="menuToggle" aria-expanded="false" aria-controls="mainNav">菜单</button>
+      </div>
+    </div>
+  </header>
+</div>
+
+<main id="top">
+
+  <!-- 首屏 -->
+  <section class="hero" aria-label="主题首屏">
+    <div class="hero-inner">
+      <div>
+        <span class="hero-eyebrow">INTTRA DOC · 补料作业台</span>
+        <h1>inttra官网提交补料</h1>
+        <p class="hero-lead">
+          围绕海运订舱中<strong>提单资料补充与修正</strong>的实操内容库：涵盖各船公司补料字段要求、截补料时间节点、退回原因对照、单证一致性核对方法，以及近期提交状态与真实操作者反馈，供货代单证、外贸跟单与订舱操作人员查阅。
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="/#guide">按步骤核对补料</a>
+          <a class="btn btn-ghost" href="/#latest">看本周更新</a>
+        </div>
+        <div class="hero-metrics">
+          <div><strong>12</strong><span>本周退回案例</span></div>
+          <div><strong>38</strong><span>船公司字段模板</span></div>
+          <div><strong>96%</strong><span>一次通过率参考</span></div>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-hidden="true">
+        <div class="doc-card">
+          <div class="doc-card-head">
+            <span>SHIPMENT / BL AMEND</span>
+            <em>草稿中</em>
+          </div>
+          <div class="doc-field"><span class="k">SHIPPER</span><span class="v">宁波某进出口有限公司</span><span class="s s-ok">✓ 通过</span></div>
+          <div class="doc-field"><span class="k">CONSIGNEE</span><span class="v">HAMBURG TRADE GMBH</span><span class="s s-ok">✓ 通过</span></div>
+          <div class="doc-field"><span class="k">NOTIFY</span><span class="v">SAME AS CONSIGNEE</span><span class="s s-ok">✓ 通过</span></div>
+          <div class="doc-field"><span class="k">HS CODE</span><span class="v">8471.30.00</span><span class="s s-warn">! 位数</span></div>
+          <div class="doc-field"><span class="k">MARKS</span><span class="v">N/M</span><span class="s s-ok">✓ 通过</span></div>
+          <div class="doc-field"><span class="k">VGМ</span><span class="v">待上传称重凭证</span><span class="s s-wait">待补</span></div>
+          <div class="doc-progress"><i></i></div>
+          <div class="doc-progress-label"><span>字段完成度</span><span>78%</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="layout">
+
+      <!-- 左栏：频道索引 -->
+      <aside class="col-left" aria-label="频道索引">
+        <div class="side-block">
+          <div class="side-title">频道索引</div>
+          <nav class="chan-list" aria-label="内容频道">
+            <a href="/#overview" class="is-active">补料概览 <span class="cnt">01</span></a>
+            <a href="/#picks">精选条目 <span class="cnt">12</span></a>
+            <a href="/#latest">提交动态 <span class="cnt">10</span></a>
+            <a href="/#channels">分类入口 <span class="cnt">08</span></a>
+            <a href="/#deep">字段解析 <span class="cnt">06</span></a>
+            <a href="/#guide">提交路径 <span class="cnt">05</span></a>
+            <a href="/#faq">常见问答 <span class="cnt">06</span></a>
+            <a href="/#voices">操作者反馈 <span class="cnt">14</span></a>
+            <a href="/#news">单证资讯 <span class="cnt">06</span></a>
+            <a href="/#related">延伸方向 <span class="cnt">08</span></a>
+            <a href="/#layer">可信度分层 <span class="cnt">03</span></a>
+          </nav>
+        </div>
+      </aside>
+
+      <!-- 中栏：主内容 -->
+      <div class="col-main">
+
+        <!-- 1 概览 -->
+        <section class="section" id="overview">
+          <div class="section-head">
+            <h2>补料概览：补什么、什么时候补、谁来补</h2>
+          </div>
+          <div class="overview">
+            <p>
+              在海运订舱流程里，<span class="kw">inttra官网提交补料</span>通常发生在订舱确认之后、船开之前的一段时间内。所谓“补料”，是把订舱阶段只填了大概的提单内容补齐为可签发提单的完整资料：发货人、收货人、通知方的完整名称与地址，箱号封号，品名描述，唛头，重量体积，以及部分航线要求的 HS 编码、原产地、信用证号等。补料的本质是一次<strong>单证一致性交付</strong>，任何一处与报关资料、装箱单、信用证不符，都可能在目的港清关或结汇环节被放大。
+            </p>
+            <p>
+              目前实际操作中，补料提交存在三条常见路径：船公司自有平台直接录入、通过 INTTRA 这类订舱平台集中提交、以及邮件加附件的传统方式。前两者字段结构化、有校验，退回后能定位到具体字段；邮件方式虽然灵活，但容易出现“改了但没改全”的情况。当前值得关注的方向包括：<strong>各船公司对 HS 编码位数的强制要求</strong>、<strong>VGM 称重凭证与补料同步提交</strong>、<strong>截补料时间与截关时间分离</strong>，以及美线 AMS、欧线 ENS 申报与补料内容的交叉核对。
+            </p>
+            <p>
+              对刚接手订舱的人而言，先分清“订舱资料”“补料资料”“报关资料”三者的边界比记住某个平台按钮更重要。补料是给船公司看的运输合同要素，报关是给海关看的监管要素，两者共享品名、件重尺，但字段颗粒度和责任主体不同。理解这一点，后面所有字段校验和退回处理才有判断依据。
+            </p>
+            <div class="fact-strip">
+              <div><b>48h</b><span>部分航线截补料提前量</span></div>
+              <div><b>7 类</b><span>高频退回原因</span></div>
+              <div><b>3 次</b><span>一般免费修改次数上限</span></div>
+              <div><b>USD 40</b><span>改单费常见区间下限</span></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2 精选内容推荐 -->
+        <section class="section" id="picks">
+          <div class="section-head">
+            <h2>精选补料条目与单证案例</h2>
+            <a class="more" href="/#latest">按更新时间浏览 →</a>
+          </div>
+          <p class="section-lead">每条对应一个具体船公司字段模板或一类真实退回案例，包含适用航线、关键字段与判断要点。</p>
+          <div class="card-grid">
+
+            <article class="card">
+              <div class="card-thumb">
+                <img src="https://picsum.photos/seed/msk-buliao01/400/300" width="400" height="300" loading="lazy" alt="马士基补料字段模板与截补料时间标注">
+                <span class="card-badge">船公司模板</span>
+              </div>
+              <div class="card-body">
+                <h3><a href="/#deep">马士基 Maersk 补料字段模板（欧线）</a></h3>
+                <p class="card-desc">覆盖发货人完整地址、通知方邮箱、HS 六位与十位双栏位、以及 ENS 申报关联项。模板特别标注了“地址行不得超过 35 字符”的硬性限制，超出会被系统直接截断而非报错。</p>
+                <div class="tag-row"><span class="tag">欧线</span><span class="tag">ENS 关联</span><span class="tag amber">字符限制</span></div>
+                <div class="card-foot"><span>更新 11-24</span><span class="heat">热度 9.6</span></div>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card-thumb">
+                <img src="https://picsum.photos/seed/evergreen-bl02/400/300" width="400" height="300" loading="lazy" alt="长荣海运补料退回通知截图示意">
+                <span class="card-badge">退回案例</span>
+              </div>
+              <div class="card-body">
+                <h3><a href="/#faq">长荣补料被退回：品名与 HS 编码不匹配</a></h3>
+                <p class="card-desc">一票机械配件因品名写作 “MACHINE PARTS” 而 HS 填 8483，被系统判为描述过于笼统。案例还原了改用 “GEARBOX HOUSING, CAST IRON” 后通过的全过程，附改写前后对照。</p>
+                <div class="tag-row"><span class="tag">品名描述</span><span class="tag">HS 编码</span><span class="tag amber">退回</span></div>
+                <div class="card-foot"><span>更新 11-23</span><span class="heat">热度 9.1</span></div>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card-thumb">
+                <img src="https://picsum.photos/seed/vgm-weigh03/400/300" width="400" height="300" loading="lazy" alt="VGM 称重凭证与补料同步提交示意">
+                <span class="card-badge">合规要点</span>
+              </div>
+              <div class="card-body">
+                <h3><a href="/#deep">VGM 称重凭证与补料同步提交</a></h3>
+                <p class="card-desc">说明整箱与拼箱在 VGM 提交主体上的差别：整箱由托运人负责，拼箱通常由场站汇总。整理称重方式（地磅、船公司认可的计算法）与补料字段的对应关系，避免重量栏与凭证不一致。</p>
+                <div class="tag-row"><span class="tag">VGM</span><span class="tag">整箱拼箱</span><span class="tag">SOLAS</span></div>
+                <div class="card-foot"><span>更新 11-22</span><span class="heat">热度 8.8</span></div>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card-thumb">
+                <img src="https://picsum.photos/seed/ams-us04/400/300" width="400" height="300" loading="lazy" alt="美线 AMS 申报与补料交叉核对表">
+                <span class="card-badge">航线核对</span>
+              </div>
+              <div class="card-body">
+                <h3><a href="/#guide">美线 AMS 与补料的交叉核对表</a></h3>
+                <p class="card-desc">AMS 在装船前 24 小时申报，补料截点常在申报之后。表格列出必须两边一致的六项：收货人名址、品名、件数、毛重、箱号、铅封号，并标注哪一侧改动需要回传修正。</p>
+                <div class="tag-row"><span class="tag">美线</span><span class="tag">AMS</span><span class="tag amber">交叉核对</span></div>
+                <div class="card-foot"><span>更新 11-21</span><span class="heat">热度 8.5</span></div>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card-thumb">
+                <img src="https://picsum.photos/seed/consignee05/400/300" width="400" height="300" loading="lazy" alt="收货人地址标准化的书写对照示例">
+                <span class="card-badge">字段实务</span>
+              </div>
+              <div class="card-body">
+                <h3><a href="/#faq">收货人地址标准化：五种常见写法对比</a></h3>
+                <p class="card-desc">同一德国收货人有五种常见英文写法，不同写法会影响目的港通知与清关匹配。对比街名前置、门牌后置、州名缩写、邮编位置等差异，给出优先采用的排列顺序。</p>
+                <div class="tag-row"><span class="tag">地址写法</span><span class="tag">清关匹配</span><span class="tag">目的港</span></div>
+                <div class="card-foot"><span>更新 11-20</span><span class="heat">热度 8.2</span></div>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card-thumb">
+                <img src="https://picsum.photos/seed/amend-fee06/400/300" width="400" height="300" loading="lazy" alt="改单费与免费修改次数对照表">
+                <span class="card-badge">费用规则</span>
+              </div>
+              <div class="card-body">
+                <h3><a href="/#guide">改单费怎么算：免费次数与超期加收</a></h3>
+                <p class="card-desc">多数船公司在截补料前提供 2—3 次免费修改，截点后按票收取改单费，部分航线叠加“迟补料费”。梳理费用触发条件、计费主体与争议处理方式，附常见争议场景说明。</p>
+                <div class="tag-row"><span class="tag">改单费</span><span class="tag">免费次数</span><span class="tag amber">成本控制</span></div>
+                <div class="card-foot"><span>更新 11-18</span><span class="heat">热度 7.9</span></div>
+              </div>
+            </article>
+
+          </div>
+        </section>
+
+        <!-- 3 最新更新 -->
+        <section class="section" id="latest">
+          <div class="section-head">
+            <h2>提交动态与截补料提醒</h2>
+            <span class="more">数据截至 2026-11-25</span>
+          </div>
+          <table class="feed-table">
+            <thead>
+              <tr><th>条目 / 船公司</th><th>具体变化</th><th>时间</th><th>状态</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="name"><a href="/#deep">马士基 Maersk</a></td>
+                <td>欧线补料新增 HS 十位编码必填，六位编码单独提交将被标记待补</td>
+                <td><time datetime="2026-11-25">今天 09:30</time></td>
+                <td><span class="st st-wait">规则更新</span></td>
+              </tr>
+              <tr>
+                <td class="name"><a href="/#picks">长荣 Evergreen</a></td>
+                <td>品名描述最小长度由 10 字符提高至 20 字符，笼统品名直接退回</td>
+                <td><time datetime="2026-11-25">今天 08:10</time></td>
+                <td><span class="st st-wait">规则更新</span></td>
+              </tr>
+              <tr>
+                <td class="name"><a href="/#guide">中远海运 COSCO</a></td>
+                <td>美线截补料时间调整至船开前 48 小时，与 AMS 申报间隔缩短</td>
+                <td><time datetime="2026-11-24">昨天 21:10</time></td>
+                <td><span class="st st-err">时间调整</span></td>
+              </tr>
+              <tr>
+                <td class="name"><a href="/#picks">赫伯罗特 Hapag-Lloyd</a></td>
+                <td>通知方邮箱改为必填，用于目的港到货通知，缺失将无法提交</td>
+                <td><time datetime="2026-11-24">昨天 16:40</time></td>
+                <td><span class="st st-wait">字段新增</span></td>
+              </tr>
+              <tr>
+                <td class="name"><a href="/#faq">阳明海运 Yang Ming</a></td>
+                <td>补料退回通知新增字段级定位，可直接查看出错栏位而非整表退回</td>
+                <td><time datetime="2026-11-23">11 月 23 日</time></td>
+                <td><span class="st st-ok">体验改善</span></td>
+              </tr>
+              <tr>
+                <td class="name"><a href="/#deep">ONE 海洋网联</a></td>
+                <td>东南亚线补料支持唛头多行录入，上限由 4 行提升至 8 行</td>
+                <td><time datetime="2026-11-22">11 月 22 日</time></td>
+                <td><span class="st st-ok">功能上线</span></td>
+              </tr>
+              <tr>
+                <td class="name"><a href="/#news">地中海航运 MSC</a></td>
+                <td>发布第四季度补料准确性通报，笼统品名占退回原因 41%</td>
+                <td><time datetime="2026-11-21">11 月 21 日</time></td>
+                <td><span class="st st-err">通报</span></td>
+              </tr>
+              <tr>
+                <td class="name"><a href="/#guide">东方海外 OOCL</a></td>
+                <td>补料草稿保存期限由 7 天延长至 15 天，便于跨周核对</td>
+                <td><time datetime="2026-11-20">11 月 20 日</time></td>
+                <td><span class="st st-ok">功能上线</span></td>
+              </tr>
+              <tr>
+                <td class="name"><a href="/#picks">以星 ZIM</a></td>
+                <td>危险品补料需同步上传 MSDS 与 UN 编号，缺一不可提交</td>
+                <td><time datetime="2026-11-18">11 月 18 日</time></td>
+                <td><span class="st st-wait">规则更新</span></td>
+              </tr>
+              <tr>
+                <td class="name"><a href="/#faq">现代商船 HMM</a></td>
+                <td>补料确认后如需再次修改，须由订舱方提交书面说明并附更正依据</td>
+                <td><time datetime="2026-11-15">11 月 15 日</time></td>
+                <td><span class="st st-err">流程收紧</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- 4 分类入口 -->
+        <section class="section" id="channels">
+          <div class="section-head">
+            <h2>按补料场景找内容</h2>
+          </div>
+          <p class="section-lead">分类按实际操作场景划分，点击进入对应条目集合。</p>
+          <div class="cat-grid">
+            <a class="cat-item" href="/#deep"><b>船公司字段模板</b><span>马士基、长荣、中远等主流船司补料栏位与字符限制</span><em>38 个模板</em></a>
+            <a class="cat-item" href="/#faq"><b>退回原因排查</b><span>品名笼统、编码不符、地址超长等高频退回场景</span><em>27 条案例</em></a>
+            <a class="cat-item" href="/#guide"><b>截补料时间</b><span>各航线截点、与截关和 AMS 申报的时间关系</span><em>15 条规则</em></a>
+            <a class="cat-item" href="/#deep"><b>HS 编码填写</b><span>位数要求、品名匹配、与报关编码一致性</span><em>19 条说明</em></a>
+            <a class="cat-item" href="/#guide"><b>VGM 与称重</b><span>整箱拼箱提交主体、称重方式与凭证同步</span><em>11 条要点</em></a>
+            <a class="cat-item" href="/#news"><b>改单费与成本</b><span>免费修改次数、超期加收、争议处理</span><em>9 条规则</em></a>
+            <a class="cat-item" href="/#picks"><b>危险品补料</b><span>MSDS、UN 编号、包装类别与申报衔接</span><em>14 条条目</em></a>
+            <a class="cat-item" href="/#voices"><b>单证一致性</b><span>补料与报关、装箱单、信用证的交叉核对</span><em>22 条方法</em></a>
+          </div>
+        </section>
+
+        <!-- 5 深度解析 -->
+        <section class="section" id="deep">
+          <div class="section-head">
+            <h2>深度解析：补料字段的校验逻辑与判断标准</h2>
+          </div>
+          <div class="deep">
+            <h3>补料不是填表，而是一次可被追溯的承诺</h3>
+            <p>
+              很多人把 <strong>inttra官网提交补料</strong> 理解为“把空着的格子填满”，于是出现大量“能提交但被退回”或“提交成功但目的港出问题”的情况。真正决定补料质量的，是三项判断：字段值是否与商业单证一致、描述是否细到可被识别、时间是否留出返工余量。这三项中，任何一项缺失都不会在提交瞬间报错，却会在后续环节暴露。
+            </p>
+            <p>
+              以品名为例。补料里的品名不是给同行看的，而是给船公司、目的港海关和保险方共同识别的。写作 “MACHINE PARTS”“GARMENTS”“STEEL PRODUCTS” 这类词，系统可能放行，但在目的港查验、反倾销核查或保险理赔时几乎无法举证。可操作的判断标准是：把品名写成“材质 + 形态 + 用途”的最小组合，例如 “CAST IRON GEARBOX HOUSING FOR PUMP”，长度控制在 20—60 字符，既满足最小长度要求，也不至于触发截断。
+            </p>
+
+            <h3>HS 编码：位数、来源与一致性</h3>
+            <p>
+              近两年最明显的变化是 HS 编码从“可选”变成“部分必填”。欧线要求十位，美线多数要求六位起，部分船公司会校验编码与品名的语义匹配。常见的三个坑：
+            </p>
+            <ul>
+              <li><strong>位数不足</strong>：填了六位，但目的国要求十位，系统在截补料后才回退，返工窗口极窄。</li>
+              <li><strong>来源不一致</strong>：补料用 A 编码，报关用 B 编码，两者都“有依据”，但一旦被比对就是单证不符。</li>
+              <li><strong>品名与编码错配</strong>：编码本身正确，但与补料品名的描述层级不匹配，例如编码对应“零件”而品名写的是“整机”。</li>
+            </ul>
+            <p>
+              稳妥做法是让补料 HS 编码与报关编码同源，由同一个责任人确认后双向登记。如果客户提供的编码与品名明显不符，宁可在截点前追问一次，也不要在截点后申请改单。
+            </p>
+
+            <h3>收货人与通知方：地址写法的实际影响</h3>
+            <p>
+              地址看似最不容易出错，实际是退回率第二高的字段。原因在于不同船公司的地址栏有不同结构：有的拆成“街道 / 城市 / 州省 / 邮编 / 国家”五栏，有的只有一个自由文本大框；有的限制每行 35 字符，有的限制总长 105 字符。当自由文本被强行塞进分栏结构时，信息会错位。
+            </p>
+            <table class="compare">
+              <thead>
+                <tr><th>对比项</th><th>分栏式地址</th><th>自由文本地址</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>适用船司</td><td>马士基、赫伯罗特部分模板</td><td>ONE、阳明部分航线</td></tr>
+                <tr><td>优点</td><td>结构清晰，便于目的港系统匹配</td><td>可保留完整原始写法，含楼栋与门牌</td></tr>
+                <tr><td>风险</td><td>超长被截断且不报错</td><td>换行混乱，关键信息被挤到末尾</td></tr>
+                <tr><td>建议</td><td>城市与州省不重复填写</td><td>把国家与邮编放最后两行</td></tr>
+              </tbody>
+            </table>
+            <p>
+              通知方字段近年被多家人为强化：赫伯罗特把通知方邮箱改为必填，目的是到货通知可直达。填写时建议使用部门邮箱而非个人邮箱，避免人员变动导致通知失效。
+            </p>
+
+            <h3>时间维度：截补料、截关与申报的三条线</h3>
+            <p>
+              补料的紧迫感来自三条时间线的错位：截补料时间、截关时间、以及目的国申报截止时间。一般规律是截补料早于截关，AMS、ENS 等申报又各有独立截止点。中远海运美线把截补料调整到船开前 48 小时后，留给“补料—申报—核对”的窗口被压缩，操作顺序需要相应前移。
+            </p>
+            <div class="quote">
+              一个实用判断：如果距离截补料不足 24 小时，先提交已确认字段并保存草稿，再逐项补全，不要等到全部字段齐备才一次性提交。多数平台支持草稿保存，东方海外已将草稿保留期延长至 15 天。
+            </div>
+
+            <h3>修改成本：什么时候改，比改什么更重要</h3>
+            <p>
+              改单费不是随机收取的，触发条件通常是“截补料后修改”或“超过免费次数”。多数船公司在截点前给 2—3 次免费修改，截点后按票计费，部分航线叠加迟补料费。控制成本的顺序应当是：先在草稿阶段自查，再在免费次数内集中修改，最后才在截点后按必要项最小化改动。把三次免费修改用于“改标点、改空格”，是最常见的浪费。
+            </p>
+          </div>
+        </section>
+
+        <!-- 6 体验指南 -->
+        <section class="section" id="guide">
+          <div class="section-head">
+            <h2>提交路径：从资料准备到确认回执</h2>
+          </div>
+          <p class="section-lead">按实际作业顺序排列，每步给出判断依据，而不是平台按钮说明。</p>
+          <div class="steps">
+            <div class="step">
+              <b>先锁定截补料时间，再倒排准备</b>
+              <p>从订舱确认书或船公司通知中确认截补料的具体日期与时刻，注意区分当地时间与北京时间。把时间写入内部跟踪表，倒推 24 小时作为内部自查截止点，避免与截关、申报截止撞在同一天。</p>
+            </div>
+            <div class="step">
+              <b>以报关资料为基准整理一套“母版数据”</b>
+              <p>把品名、HS 编码、件数、毛重、体积、箱号封号集中到一张表，作为补料、报关、装箱单的共同来源。母版只允许一个责任人修改，改动需标注时间与原因，减少三份单证各自漂移。</p>
+            </div>
+            <div class="step">
+              <b>按船公司模板逐栏映射，而不是照抄旧单</b>
+              <p>不同船公司的栏位结构不同，照抄上一票的补料容易带入旧地址或旧通知方。逐栏对照当前模板，遇到字符限制的字段先做长度核算，再决定缩写方式。</p>
+            </div>
+            <div class="step">
+              <b>提交前做三项交叉核对</b>
+              <p>一是补料与报关的品名和 HS 编码是否一致；二是毛重与 VGM 凭证是否吻合；三是收货人地址与信用证或合同是否一致。三项中任何一项不确定，就先存草稿而不是提交。</p>
+            </div>
+            <div class="step">
+              <b>提交后保存回执，跟踪状态到“已确认”</b>
+              <p>提交成功不等于船公司确认。保留提交回执与时间戳，隔一段时间回查状态。若显示待补或退回，按字段级提示逐项处理，并记录退回原因，形成自己的高频错误清单。</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7 FAQ -->
+        <section class="section" id="faq">
+          <div class="section-head">
+            <h2>常见问答</h2>
+          </div>
+          <div class="faq-list">
+            <details class="faq">
+              <summary>补料一般要提前多久提交比较稳妥？</summary>
+              <div class="faq-body">以截补料时间为准，建议至少提前 24 小时完成首次提交，留出被退回后修改的余量。美线在截补料与 AMS 申报间隔缩短后，提前量宜拉到 36—48 小时。若品名或 HS 编码需要客户确认，提前量还要再放宽。</div>
+            </details>
+            <details class="faq">
+              <summary>品名写得太笼统会被退回吗？</summary>
+              <div class="faq-body">会。长荣已把品名最小长度提高到 20 字符，地中海航运的季度通报中笼统品名占退回原因的 41%。建议写成“材质 + 形态 + 用途”，例如把 “MACHINE PARTS” 改为 “CAST IRON GEARBOX HOUSING FOR PUMP”，既具体又可核对。</div>
+            </details>
+            <details class="faq">
+              <summary>HS 编码填六位还是十位？</summary>
+              <div class="faq-body">取决于目的国与船公司要求。欧线通常要求十位，美线多数六位起，马士基欧线模板已把十位设为必填。判断方法是先看目的国海关要求，再看船公司模板提示，两者取更严格的一方，并确保与报关编码同源。</div>
+            </details>
+            <details class="faq">
+              <summary>补料提交后还能改吗？改单费怎么触发？</summary>
+              <div class="faq-body">可以改，但成本不同。截补料前多数船公司提供 2—3 次免费修改；截点后按票收取改单费，常见区间从 USD 40 起，部分航线叠加迟补料费。控制方式是在免费次数内集中修改，避免把次数耗在标点和空格上。</div>
+            </details>
+            <details class="faq">
+              <summary>VGM 重量和补料毛重必须一致吗？</summary>
+              <div class="faq-body">应当一致或可解释。VGM 是 SOLAS 要求的核实总重，补料毛重是货物净重加包装。整箱由托运人负责称重并提交，拼箱通常由场站汇总。若两者差异明显，需保留称重凭证并说明差额来源，否则可能在装船环节被质疑。</div>
+            </details>
+            <details class="faq">
+              <summary>第一次接触补料，从哪类条目看起比较好？</summary>
+              <div class="faq-body">建议先看“船公司字段模板”理解栏位结构，再看两到三个“退回原因排查”案例，最后看“截补料时间”规则。这样建立的顺序是：知道要填什么、知道哪里容易错、知道什么时候必须交，比直接上手填表更省返工。</div>
+            </details>
+          </div>
+        </section>
+
+        <!-- 8 用户评论 -->
+        <section class="section" id="voices">
+          <div class="section-head">
+            <h2>操作者反馈</h2>
+            <span class="more">近 30 天内 14 条</span>
+          </div>
+          <div class="comment-grid">
+            <div class="comment">
+              <div class="comment-head"><span class="avatar" style="background:#0f6d8c">陈</span><span class="nick">陈屿舟</span><time datetime="2026-11-25">今天 10:12</time></div>
+              <p>马士基欧线那个十位 HS 编码是真的，上周五就是六位被标待补，截点前两小时才发现，差点赶不上。</p>
+            </div>
+            <div class="comment">
+              <div class="comment-head"><span class="avatar" style="background:#e08a1e">林</span><span class="nick">林知夏</span><time datetime="2026-11-25">今天 09:05</time></div>
+              <p>品名改写那条很有用。我们做五金件，以前一直写 “HARDWARE”，退回两次之后改成 “STAINLESS STEEL DOOR HINGE” 就过了。</p>
+            </div>
+            <div class="comment">
+              <div class="comment-head"><span class="avatar" style="background:#1c7a52">赵</span><span class="nick">赵慕白</span><time datetime="2026-11-24">昨天 22:40</time></div>
+              <p>地址 35 字符限制这个坑踩过。系统不报错，直接截掉后半段，收货人城市没了，目的港通知发不出去。</p>
+            </div>
+            <div class="comment">
+              <div class="comment-head"><span class="avatar" style="background:#b4442a">吴</span><span class="nick">吴念安</span><time datetime="2026-11-24">昨天 20:18</time></div>
+              <p>改单费那段写得很实在。我们内部现在规定三次免费修改必须留给实质性字段，标点空格一律草稿阶段解决。</p>
+            </div>
+            <div class="comment">
+              <div class="comment-head"><span class="avatar" style="background:#123a5c">周</span><span class="nick">周叙平</span><time datetime="2026-11-24">昨天 17:33</time></div>
+              <p>中远美线提前到 48 小时之后，我们排期整个往前挪了一天。现在内部自查截止点放在截点前 36 小时。</p>
+            </div>
+            <div class="comment">
+              <div class="comment-head"><span class="avatar" style="background:#6b7c8c">何</span><span class="nick">何嘉禾</span><time datetime="2026-11-23">11 月 23 日</time></div>
+              <p>VGM 和补料毛重对不上这件事，我们拼箱遇到过。场站汇总的重量比我们报的多 80 公斤，最后是托盘重量没算进去。</p>
+            </div>
+            <div class="comment">
+              <div class="comment-head"><span class="avatar" style="background:#0f6d8c">孙</span><span class="nick">孙照野</span><time datetime="2026-11-23">11 月 23 日</time></div>
+              <p>阳明字段级定位确实好用，以前整表退回要一行行对，现在直接告诉你是哪个栏位。</p>
+            </div>
+            <div class="comment">
+              <div class="comment-head"><span class="avatar" style="background:#e08a1e">沈</span><span class="nick">沈亦航</span><time datetime="2026-11-22">11 月 22 日</time></div>
+              <p>危险品补料那块能不能再细一点，MSDS 版本号要不要跟 UN 编号一起上传，我们这边操作口径还不统一。</p>
+            </div>
+            <div class="comment">
+              <div class="comment-head"><span class="avatar" style="background:#1c7a52">顾</span><span class="nick">顾清和</span><time datetime="2026-11-22">11 月 22 日</time></div>
+              <p>建议补充信用证项下的补料要求，有些条款对收货人写法非常死，差一个 CO., LTD 都可能被拒付。</p>
+            </div>
+            <div class="comment">
+              <div class="comment-head"><span class="avatar" style="background:#b4442a">郑</span><span class="nick">郑斯远</span><time datetime="2026-11-21">11 月 21 日</time></div>
+              <p>草稿保存期延长到 15 天这件事对跨周核对很有帮助，周五整理一半的资料周一还能接着改。</p>
+            </div>
+            <div class="comment">
+              <div class="comment-head"><span class="avatar" style="background:#123a5c">韩</span><span class="nick">韩沐之</span><time datetime="2026-11-20">11 月 20 日</time></div>
+              <p>MSC 那份通报我看了，笼统品名 41% 这个比例我们公司内部估计也差不多，确实该统一品名模板了。</p>
+            </div>
+            <div class="comment">
+              <div class="comment-head"><span class="avatar" style="background:#6b7c8c">许</span><span class="nick">许稼轩</span><time datetime="2026-11-19">11 月 19 日</time></div>
+              <p>唛头多行录入提升到 8 行对我们做多规格混装的很友好，以前只能写 “SEE ATTACHED”，还得额外发邮件。</p>
+            </div>
+            <div class="comment">
+              <div class="comment-head"><span class="avatar" style="background:#0f6d8c">冯</span><span class="nick">冯令仪</span><time datetime="2026-11-18">11 月 18 日</time></div>
+              <p>通知方邮箱强制之后，我们统一改成了单证组公共邮箱，个人邮箱一旦离职就收不到到货通知。</p>
+            </div>
+            <div class="comment">
+              <div class="comment-head"><span class="avatar" style="background:#e08a1e">邓</span><span class="nick">邓予安</span><time datetime="2026-11-16">11 月 16 日</time></div>
+              <p>整体内容偏实操，但希望多几个东南亚线的模板，现在欧线美线信息比较全，近洋线偏少。</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 9 相关资讯 -->
+        <section class="section" id="news">
+          <div class="section-head">
+            <h2>单证与补料资讯</h2>
+          </div>
+          <div class="news-list">
+            <article class="news-item">
+              <img src="https://picsum.photos/seed/msc-report11/600/400" width="600" height="400" loading="lazy" alt="地中海航运补料准确性季度通报文件">
+              <div class="news-body">
+                <span class="date">2026-11-21</span>
+                <h3><a href="/#faq">MSC 发布第四季度补料准确性通报，笼统品名占退回原因四成</a></h3>
+                <p>通报统计了近三个月亚洲出口航线的补料退回数据，品名描述不足、HS 编码位数不符、地址超长位列前三，并给出品名改写示例。</p>
+              </div>
+            </article>
+            <article class="news-item">
+              <img src="https://picsum.photos/seed/cosco-time11/600/400" width="600" height="400" loading="lazy" alt="中远海运美线截补料时间调整通知">
+              <div class="news-body">
+                <span class="date">2026-11-24</span>
+                <h3><a href="/#latest">中远海运美线截补料提前至船开前 48 小时</a></h3>
+                <p>调整后与 AMS 申报间隔收窄，操作方需把内部自查节点前移，部分货代已将订舱确认后的资料整理时间压缩到 12 小时内。</p>
+              </div>
+            </article>
+            <article class="news-item">
+              <img src="https://picsum.photos/seed/yangming-field11/600/400" width="600" height="400" loading="lazy" alt="阳明海运补料字段级退回提示界面">
+              <div class="news-body">
+                <span class="date">2026-11-23</span>
+                <h3><a href="/#deep">阳明补料退回提示细化到字段，减少整表重填</a></h3>
+                <p>新提示会直接标出出错栏位与原因类型，操作方可在原草稿上单点修改，不必重新录入全部内容，退回处理时间平均缩短约三成。</p>
+              </div>
+            </article>
+            <article class="news-item">
+              <img src="https://picsum.photos/seed/hapag-email11/600/400" width="600" height="400" loading="lazy" alt="赫伯罗特通知方邮箱必填设置说明">
+              <div class="news-body">
+                <span class="date">2026-11-24</span>
+                <h3><a href="/#guide">赫伯罗特将通知方邮箱设为必填，用于到货通知直达</a></h3>
+                <p>缺省该字段将无法提交补料。建议使用部门公共邮箱，并在客户变更时同步更新，避免到货通知因人员变动中断。</p>
+              </div>
+            </article>
+            <article class="news-item">
+              <img src="https://picsum.photos/seed/zim-dgr11/600/400" width="600" height="400" loading="lazy" alt="以星危险品补料需上传 MSDS 与 UN 编号">
+              <div class="news-body">
+                <span class="date">2026-11-18</span>
+                <h3><a href="/#picks">以星危险品补料需同步上传 MSDS 与 UN 编号</a></h3>
+                <p>两项材料缺一不可提交。包装类别与闪点信息需与 MSDS 版本一致，过期版本的 MSDS 会被要求重新提交。</p>
+              </div>
+            </article>
+            <article class="news-item">
+              <img src="https://picsum.photos/seed/oocl-draft11/600/400" width="600" height="400" loading="lazy" alt="东方海外补料草稿保存期延长至 15 天">
+              <div class="news-body">
+                <span class="date">2026-11-20</span>
+                <h3><a href="/#guide">东方海外补料草稿保存期延长至 15 天</a></h3>
+                <p>便于跨周核对客户资料。草稿期内可多次修改不计入免费修改次数，正式提交后规则不变。</p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- 10 相关推荐 -->
+        <section class="section" id="related">
+          <div class="section-head">
+            <h2>延伸方向</h2>
+            <span class="more">按内容方向索引</span>
+          </div>
+          <div class="tag-index">
+            <a href="/#deep">提单背面条款 <i>12</i></a>
+            <a href="/#deep">信用证项下提单要求 <i>09</i></a>
+            <a href="/#guide">AMS 申报时限 <i>07</i></a>
+            <a href="/#guide">ENS 申报字段 <i>08</i></a>
+            <a href="/#faq">拼箱补料主体 <i>06</i></a>
+            <a href="/#picks">危险品 UN 编号 <i>14</i></a>
+            <a href="/#news">改单费争议处理 <i>05</i></a>
+            <a href="/#voices">单证三单一致 <i>11</i></a>
+          </div>
+        </section>
+
+        <!-- 11 补充：可信度分层 -->
+        <section class="section" id="layer">
+          <div class="section-head">
+            <h2>信息可信度分层</h2>
+          </div>
+          <p class="section-lead">补料规则会随船公司与航线调整，按来源层级判断可用程度。</p>
+          <div class="layer-grid">
+            <div class="layer l1">
+              <h3>船公司正式通知 <em>优先</em></h3>
+              <p>来自船公司官网公告、订舱确认书附注、平台站内信的规则变更，可直接作为操作依据。</p>
+              <ul>
+                <li>截补料时间调整通知</li>
+                <li>字段必填与位数要求</li>
+                <li>改单费计费标准</li>
+              </ul>
+            </div>
+            <div class="layer l2">
+              <h3>平台操作反馈 <em>参考</em></h3>
+              <p>来自实际提交后的状态提示与退回原因，反映系统当前行为，但可能随版本更新而变化。</p>
+              <ul>
+                <li>字段级退回提示内容</li>
+                <li>草稿保存与提交回执</li>
+                <li>字符限制的实际截断表现</li>
+              </ul>
+            </div>
+            <div class="layer l3">
+              <h3>同行经验整理 <em>核对</em></h3>
+              <p>来自操作者交流与案例复盘，适合作为排查线索，使用前应与当票船公司要求逐条核对。</p>
+              <ul>
+                <li>品名改写说法</li>
+                <li>地址排列顺序习惯</li>
+                <li>争议处理沟通路径</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- 右栏：辅助 -->
+      <aside class="col-right" aria-label="辅助信息">
+        <div class="side-block">
+          <div class="side-title">高频退回榜</div>
+          <ol class="hot-list">
+            <li><span class="rank">1</span><div><a href="/#faq">品名描述过于笼统</a><span class="meta">占退回 41% · 11-21</span></div></li>
+            <li><span class="rank">2</span><div><a href="/#deep">HS 编码位数不足</a><span class="meta">占退回 23% · 11-24</span></div></li>
+            <li><span class="rank">3</span><div><a href="/#guide">收货人地址超长截断</a><span class="meta">占退回 14% · 11-24</span></div></li>
+            <li><span class="rank">4</span><div><a href="/#guide">VGM 与毛重不一致</a><span class="meta">占退回 9% · 11-23</span></div></li>
+            <li><span class="rank">5</span><div><a href="/#faq">通知方邮箱缺失</a><span class="meta">占退回 7% · 11-24</span></div></li>
+            <li><span class="rank">6</span><div><a href="/#picks">危险品材料不全</a><span class="meta">占退回 4% · 11-18</span></div></li>
+            <li><span class="rank">7</span><div><a href="/#deep">箱号与封号不匹配</a><span class="meta">占退回 2% · 11-15</span></div></li>
+          </ol>
+        </div>
+
+        <div class="side-block">
+          <div class="side-title">截补料倒计时</div>
+          <ul class="update-feed">
+            <li><time>11-25 18:00</time><span>马士基 欧线 截补料</span></li>
+            <li><time>11-26 12:00</time><span>长荣 东南亚线 截补料</span></li>
+            <li><time>11-27 09:00</time><span>中远海运 美西线 截补料</span></li>
+            <li><time>11-27 20:00</time><span>赫伯罗特 地中海线 截补料</span></li>
+            <li><time>11-28 10:00</time><span>ONE 日韩线 截补料</span></li>
+          </ul>
+        </div>
+
+        <div class="side-block">
+          <div class="side-title">最近更新</div>
+          <ul class="update-feed">
+            <li><time>今天 09:30</time><span>马士基欧线十位 HS 必填</span></li>
+            <li><time>今天 08:10</time><span>长荣品名最小长度调整</span></li>
+            <li><time>昨天 21:10</time><span>中远美线截补料提前</span></li>
+            <li><time>昨天 16:40</time><span>赫伯罗特通知方邮箱必填</span></li>
+            <li><time>11 月 23 日</time><span>阳明字段级退回提示</span></li>
+          </ul>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="brand" style="margin-bottom:4px">
+          <svg class="brand-mark" viewBox="0 0 40 40" role="img" aria-label="补料单证标志">
+            <rect x="1" y="1" width="38" height="38" rx="9" fill="#0f6d8c"/>
+            <path d="M9 13.5h14a3 3 0 0 1 3 3v13" stroke="#9fd8e8" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <path d="M9 20h11a3 3 0 0 1 3 3v6.5" stroke="#ffc46b" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <rect x="24.5" y="9.5" width="7" height="9" rx="1.6" fill="#fff"/>
+            <path d="M26.2 12.2h3.6M26.2 14.6h3.6M26.2 17h2.2" stroke="#0f6d8c" stroke-width="1.1" stroke-linecap="round"/>
+          </svg>
+          <span class="brand-text">
+            <span class="name">inttra官网提交补料</span>
+            <span class="sub">SHIPPING DOC HUB</span>
+          </span>
+        </div>
+        <p>聚焦海运订舱补料的字段规范、时间节点与退回排查，为货代单证、外贸跟单与订舱操作提供可核对的实操条目。</p>
+      </div>
+      <div class="footer-col">
+        <h4>内容栏目</h4>
+        <a href="/#overview">补料概览</a>
+        <a href="/#picks">精选条目</a>
+        <a href="/#latest">提交动态</a>
+        <a href="/#channels">分类入口</a>
+      </div>
+      <div class="footer-col">
+        <h4>实操方向</h4>
+        <a href="/#deep">字段解析</a>
+        <a href="/#guide">提交路径</a>
+        <a href="/#faq">常见问答</a>
+        <a href="/#voices">操作者反馈</a>
+      </div>
+      <div class="footer-col">
+        <h4>延伸查阅</h4>
+        <a href="/#news">单证资讯</a>
+        <a href="/#related">延伸方向</a>
+        <a href="/#layer">可信度分层</a>
+        <a href="/#top">返回顶部</a>
+      </div>
+    </div>
+    <div class="footer-note">
+      <span><b>数据说明</b>：页面内时间、榜单与案例统计截至 2026 年 11 月 25 日，规则以各船公司当期通知为准。</span>
+      <span>© 2026 inttra官网提交补料 · 内容整理与单证实践记录</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var toggle=document.getElementById('menuToggle');
+  var nav=document.getElementById('mainNav');
+  if(toggle&&nav){
+    toggle.addEventListener('click',function(){
+      var open=nav.classList.toggle('open');
+      toggle.setAttribute('aria-expanded',open?'true':'false');
+      toggle.textContent=open?'收起':'菜单';
+    });
+    nav.addEventListener('click',function(e){
+      if(e.target.tagName==='A'&&nav.classList.contains('open')){
+        nav.classList.remove('open');
+        toggle.setAttribute('aria-expanded','false');
+        toggle.textContent='菜单';
+      }
+    });
+    document.addEventListener('keydown',function(e){
+      if(e.key==='Escape'&&nav.classList.contains('open')){
+        nav.classList.remove('open');
+        toggle.setAttribute('aria-expanded','false');
+        toggle.textContent='菜单';
+        toggle.focus();
+      }
+    });
+  }
+})();
+</script>
+</body>
+  </html>
